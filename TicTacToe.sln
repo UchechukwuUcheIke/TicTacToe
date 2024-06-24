@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TicTacToe", "TicTacToe\TicTacToe.vcxproj", "{ED2F7788-607E-4E70-B9D4-A643322DEB60}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{7A4D3032-77FA-441A-AECB-FCBE0017F55A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{ED2F7788-607E-4E70-B9D4-A643322DEB60}.Release|x64.Build.0 = Release|x64
 		{ED2F7788-607E-4E70-B9D4-A643322DEB60}.Release|x86.ActiveCfg = Release|Win32
 		{ED2F7788-607E-4E70-B9D4-A643322DEB60}.Release|x86.Build.0 = Release|Win32
+		{7A4D3032-77FA-441A-AECB-FCBE0017F55A}.Debug|x64.ActiveCfg = Debug|x64
+		{7A4D3032-77FA-441A-AECB-FCBE0017F55A}.Debug|x64.Build.0 = Debug|x64
+		{7A4D3032-77FA-441A-AECB-FCBE0017F55A}.Debug|x86.ActiveCfg = Debug|Win32
+		{7A4D3032-77FA-441A-AECB-FCBE0017F55A}.Debug|x86.Build.0 = Debug|Win32
+		{7A4D3032-77FA-441A-AECB-FCBE0017F55A}.Release|x64.ActiveCfg = Release|x64
+		{7A4D3032-77FA-441A-AECB-FCBE0017F55A}.Release|x64.Build.0 = Release|x64
+		{7A4D3032-77FA-441A-AECB-FCBE0017F55A}.Release|x86.ActiveCfg = Release|Win32
+		{7A4D3032-77FA-441A-AECB-FCBE0017F55A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

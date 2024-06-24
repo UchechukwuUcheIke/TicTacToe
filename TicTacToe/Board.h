@@ -8,7 +8,7 @@ public:
 
     void display() const;
     bool isSpaceOpen(int row, int col, char player);
-    bool makeMove(int row, int col, char player);
+    void makeMove(int row, int col, char player);
     bool isFull() const;
     bool checkWin(char player) const;
 
