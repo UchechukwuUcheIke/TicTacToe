@@ -12,6 +12,11 @@ public:
     bool isFull() const;
     bool checkWin(char player) const;
 
+    std::vector<std::vector<char>> getBoard();
+    size_t getNumRows();
+    size_t getNumCols();
+
+
 private:
     std::vector<std::vector<char>> board;
     size_t num_rows;

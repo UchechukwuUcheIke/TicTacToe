@@ -16,6 +16,18 @@ Board::Board() {
         {' ',' ',' '}
     };
 }
+
+std::vector<std::vector<char>> Board::getBoard() {
+    return this->board;
+}
+
+size_t Board::getNumRows() {
+    return this->num_rows;
+}
+size_t Board::getNumCols() {
+    return this->num_cols;
+}
+
 void Board::display() const {
 }
 
