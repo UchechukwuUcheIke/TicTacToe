@@ -12,6 +12,8 @@ public:
     bool checkWin(char player) const;
     void display() const;
 
+    void resetBoard();
+
     std::vector<std::vector<char>> getBoard();
     size_t getNumRows();
     size_t getNumCols();
