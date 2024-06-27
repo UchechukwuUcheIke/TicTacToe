@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(char Token) {
-	this->token = token;
+Player::Player(char new_token) {
+	this->token = new_token;
 }
 
 char Player::getToken() {
