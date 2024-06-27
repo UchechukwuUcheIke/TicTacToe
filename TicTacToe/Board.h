@@ -6,11 +6,11 @@ class Board {
 public:
     Board();
 
-    void display() const;
-    bool isSpaceOpen(int row, int col, char player);
     void makeMove(int row, int col, char player);
+    bool isSpaceOpen(int row, int col);
     bool isFull() const;
     bool checkWin(char player) const;
+    void display() const;
 
     std::vector<std::vector<char>> getBoard();
     size_t getNumRows();
@@ -24,5 +24,6 @@ private:
 
     bool checkRow(int row, char player) const;
     bool checkCol(int col, char player) const;
-    bool checkDiagonals(char player) const;
+    bool checkDiagonal(char player) const;
+    bool checkAntiDiagonal(char player) const;
 };

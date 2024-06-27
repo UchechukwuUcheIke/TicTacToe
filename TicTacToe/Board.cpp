@@ -31,7 +31,7 @@ size_t Board::getNumCols() {
 void Board::display() const {
 }
 
-bool Board::isSpaceOpen(int row, int col, char player) {
+bool Board::isSpaceOpen(int row, int col) {
     return this->board[row][col] == ' ';
 }
 
@@ -70,13 +70,18 @@ bool Board::checkWin(char player) const {
         if (this->checkCol(col, player)) {
             return true;
         }
-     }
+    }
 
-        if (checkDiagonals(player)) {
-            return true;
-        }
+    if (checkDiagonal(player)) {
+        return true;
+    }
 
-        return false;
+    if (checkAntiDiagonal(player)) {
+        return true;
+    }
+
+
+    return false;
 }
 
 bool Board::checkRow(int row, char player) const {
@@ -103,8 +108,8 @@ bool Board::checkCol(int col, char player) const {
     return true;
 }
 
-bool Board::checkDiagonals(char player) const {
-    // Check the Diagonal (Top Left to Bottom Right)
+bool Board::checkDiagonal(char player) const {
+    // Check the Top Left to Bottom Right
 
     // Assuming the number of rows and columns in the board are the same
     size_t num_rows = this->num_rows;
@@ -117,10 +122,14 @@ bool Board::checkDiagonals(char player) const {
         }
     }
 
-    // Check the AntiDiagonal (Bottom Left to Top Right)
+    return true;
+
+}
+bool Board::checkAntiDiagonal(char player) const {
+    // Check the Bottom Left to Top Right
     size_t num_cols = this->num_cols;
     for (size_t row = 0; row < num_rows; row++) {
-        size_t col = num_cols - row;
+        size_t col = num_cols - row - 1;
         char space = this->board[row][col];
         if (space != player) {
             return false;
