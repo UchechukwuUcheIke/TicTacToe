@@ -7,12 +7,16 @@ class Game
 {
 public:
 	Game();
-	void takeTurn();
+	void takeTurn(size_t row, size_t col);
+	bool checkWinner();
+	Player getCurrentPlayer();
 	void resetGame();
-
 
 private:
 	Board board;
-	std::queue<Player> players;
+	Player player1;
+	Player player2;
 	Player current_player;
+
+	void swapPlayer();
 };

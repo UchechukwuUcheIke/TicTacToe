@@ -138,3 +138,12 @@ bool Board::checkAntiDiagonal(char player) const {
 
     return true;
 }
+
+void Board::resetBoard() {
+    this->board =
+    {
+        {' ',' ',' '},
+        {' ',' ',' '},
+        {' ',' ',' '}
+    };
+}
