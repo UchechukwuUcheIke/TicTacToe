@@ -9,8 +9,12 @@ public:
 	Game();
 	void takeTurn(size_t row, size_t col);
 	bool checkWinner();
-	Player getCurrentPlayer();
 	void resetGame();
+
+	Player getCurrentPlayer();
+	Player getPlayer1();
+	Player getPlayer2();
+	Board getBoard();
 
 private:
 	Board board;

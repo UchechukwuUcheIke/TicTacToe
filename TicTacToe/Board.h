@@ -6,7 +6,7 @@ class Board {
 public:
     Board();
 
-    void makeMove(int row, int col, char player);
+    bool makeMove(int row, int col, char player);
     bool isSpaceOpen(int row, int col);
     bool isFull() const;
     bool checkWin(char player) const;

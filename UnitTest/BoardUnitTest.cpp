@@ -191,5 +191,7 @@ namespace BoardUnitTest
 			bool hasWon = board->checkWin(player);
 			Assert::IsFalse(hasWon);
 		}
+
+		//TODO: Add a test case that checks if a move on the board is valid
 	};
 }

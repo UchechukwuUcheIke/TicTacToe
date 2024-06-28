@@ -35,8 +35,13 @@ bool Board::isSpaceOpen(int row, int col) {
     return this->board[row][col] == ' ';
 }
 
-void Board::makeMove(int row, int col, char token) {
+bool Board::makeMove(int row, int col, char token) {
+    if (not this->isSpaceOpen(row, col)) {
+        return false;
+    }
+
     this->board[row][col] = token;
+    return true;
 }
 
 bool Board::isFull() const {

@@ -6,16 +6,16 @@ Game::Game() {
 	Player player2 = Player('o');
 	
 	this->player1 = player1;
-	this->player1 = player1;
+	this->player2 = player2;
 	this->current_player = this->player1;
 }
 
 void Game::takeTurn(size_t row, size_t col) {
-	Board board = this->board;
 
 	Player current_player = this->current_player;
 	char player_token = current_player.getToken();
-	board.makeMove(row, col, player_token);
+	//TODO: Check whether the move is valid. The board should report if makeMove was successful
+	this->board.makeMove(row, col, player_token);
 	this->swapPlayer();
 }
 
@@ -40,6 +40,20 @@ void Game::swapPlayer() {
 Player Game::getCurrentPlayer() {
 	return this->current_player;
 }
+
+Board Game::getBoard() {
+	return this->board;
+}
+
+Player Game::getPlayer1() {
+	return this->player1;
+}
+
+Player Game::getPlayer2() {
+	return this->player2;
+}
+
+
 void Game::resetGame() {
 	this->board.resetBoard();
 	this->current_player = this->player1;
