@@ -10,13 +10,16 @@ Game::Game() {
 	this->current_player = this->player1;
 }
 
-void Game::takeTurn(size_t row, size_t col) {
+bool Game::takeTurn(size_t row, size_t col) {
 
 	Player current_player = this->current_player;
 	char player_token = current_player.getToken();
 	//TODO: Check whether the move is valid. The board should report if makeMove was successful
-	this->board.makeMove(row, col, player_token);
-	this->swapPlayer();
+	bool move_successful = this->board.makeMove(row, col, player_token);
+	if (!move_successful) {
+		return false;
+	}
+	return true;
 }
 
 bool Game::checkWinner() {

@@ -36,7 +36,7 @@ bool Board::isSpaceOpen(int row, int col) {
 }
 
 bool Board::makeMove(int row, int col, char token) {
-    if (not this->isSpaceOpen(row, col)) {
+    if (!this->isSpaceOpen(row, col)) {
         return false;
     }
 

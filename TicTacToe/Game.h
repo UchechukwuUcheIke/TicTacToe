@@ -7,9 +7,10 @@ class Game
 {
 public:
 	Game();
-	void takeTurn(size_t row, size_t col);
+	bool takeTurn(size_t row, size_t col);
 	bool checkWinner();
 	void resetGame();
+	void swapPlayer();
 
 	Player getCurrentPlayer();
 	Player getPlayer1();
@@ -22,5 +23,5 @@ private:
 	Player player2;
 	Player current_player;
 
-	void swapPlayer();
+	
 };
