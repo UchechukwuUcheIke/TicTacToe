@@ -2,12 +2,42 @@
 //
 
 #include <iostream>
-#include "Board.h"
+#include "Game.h"
 
 int main()
-{
-    std::cout << "Hello World!\n";
-    Board* board = new Board();
+{   
+        // Very simple CLI demo of game
+        Game game = Game();
+        while (true) {
+            Board board = game.getBoard();
+
+            std::cout << board;
+            Player current_player = game.getCurrentPlayer();
+            char player_token = current_player.getToken();
+
+            std::cout << "It's " << player_token << "'s turn!\n";
+            std::cout << "Enter a row:\n";
+            int row{ };
+            std::cin >> row;
+            std::cout << "Enter a col:\n";
+            int col{ };
+            std::cin >> col;
+            
+            bool move_successful = game.takeTurn(row, col);
+            if (!move_successful) {
+                std::cout << "Invalid move\n";
+                continue;
+            }
+
+            bool won_game = game.checkWinner();
+            if (won_game) {
+                std::cout << player_token << " has won the game!\n";
+                game.resetGame();
+                continue;
+            }
+
+            game.swapPlayer();
+        }
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

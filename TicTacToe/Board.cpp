@@ -35,7 +35,20 @@ bool Board::isSpaceOpen(int row, int col) {
     return this->board[row][col] == ' ';
 }
 
+bool Board::checkMoveWithinBounds(int row, int col) {
+    int num_rows = this->num_rows;
+    int num_cols = this->num_cols;
+
+    bool row_valid = row >= 0 && row < num_rows;
+    bool col_valid = col >= 0 && col < num_cols;
+    return row_valid && col_valid;
+}
 bool Board::makeMove(int row, int col, char token) {
+    //TODO: Add a check that ensures the move is within the bounds of the board
+    if (!checkMoveWithinBounds(row, col)) {
+        return false;
+    }
+
     if (!this->isSpaceOpen(row, col)) {
         return false;
     }
@@ -151,4 +164,19 @@ void Board::resetBoard() {
         {' ',' ',' '},
         {' ',' ',' '}
     };
+}
+
+std::ostream& operator<<(std::ostream& os, Board& board) {
+    size_t rows = board.getNumRows();
+    size_t cols = board.getNumCols();
+    std::vector<std::vector<char>> board_vector = board.getBoard();
+
+    for (size_t row = 0; row < rows; row++) {
+        for (size_t col = 0; col < cols; col++) {
+            os << "|" << board_vector[row][col];
+        }
+        os << "|\n";
+    }
+
+    return os;
 }
