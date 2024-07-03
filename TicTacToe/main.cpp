@@ -5,7 +5,7 @@
 #include "Game.h"
 
 int main()
-{   
+{   /*
         // Very simple CLI demo of game
         Game game = Game();
         while (true) {
@@ -38,6 +38,7 @@ int main()
 
             game.swapPlayer();
         }
+        */
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
