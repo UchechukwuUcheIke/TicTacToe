@@ -1,5 +1,6 @@
 #pragma once
-#include "TicTacToe.h"
+#include "Resource.h"
+#include "../TicTacToe/Game.h"
 
 namespace UserInterface {
 
@@ -18,10 +19,12 @@ namespace UserInterface {
 	public:
 		MyForm(void)
 		{
+			this->game = new Game();
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
+			
 		}
 
 	protected:
@@ -34,8 +37,12 @@ namespace UserInterface {
 			{
 				delete components;
 			}
+			delete game;
 		}
 	private: System::Windows::Forms::Panel^ MenuPanel;
+
+	private: Game* game;
+	//private: Bitmap oMark = Properties.Resources.OMark;
 	protected:
 
 	private: System::Windows::Forms::TableLayoutPanel^ GameModesLayout;
@@ -54,8 +61,10 @@ namespace UserInterface {
 	private: System::Windows::Forms::Button^ Cell6;
 	private: System::Windows::Forms::Button^ Cell7;
 	private: System::Windows::Forms::Button^ Cell8;
+	private: System::Windows::Forms::Button^ OMark;
+	private: System::Windows::Forms::Button^ XMark;
 
-	private 
+	
 
 
 
@@ -101,6 +110,8 @@ namespace UserInterface {
 			this->Cell7 = (gcnew System::Windows::Forms::Button());
 			this->Cell8 = (gcnew System::Windows::Forms::Button());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->XMark = (gcnew System::Windows::Forms::Button());
+			this->OMark = (gcnew System::Windows::Forms::Button());
 			this->MenuPanel->SuspendLayout();
 			this->GameModesLayout->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -173,7 +184,6 @@ namespace UserInterface {
 			this->MultiplayerButton->Size = System::Drawing::Size(397, 107);
 			this->MultiplayerButton->TabIndex = 1;
 			this->MultiplayerButton->UseVisualStyleBackColor = false;
-			this->MultiplayerButton->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
 			// pictureBox1
 			// 
@@ -187,14 +197,18 @@ namespace UserInterface {
 			// 
 			// GamePanel
 			// 
+			this->GamePanel->Controls->Add(this->OMark);
+			this->GamePanel->Controls->Add(this->XMark);
 			this->GamePanel->Controls->Add(this->BoardPanel);
 			this->GamePanel->Controls->Add(this->pictureBox2);
-			this->GamePanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->GamePanel->Dock = System::Windows::Forms::DockStyle::Left;
 			this->GamePanel->Location = System::Drawing::Point(0, 0);
 			this->GamePanel->Name = L"GamePanel";
-			this->GamePanel->Size = System::Drawing::Size(923, 424);
+			this->GamePanel->Size = System::Drawing::Size(924, 424);
 			this->GamePanel->TabIndex = 1;
+			this->GamePanel->Visible = false;
 			this->GamePanel->VisibleChanged += gcnew System::EventHandler(this, &MyForm::OnGamePanelVisibilityChanged);
+			this->GamePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::GamePanel_Paint);
 			// 
 			// BoardPanel
 			// 
@@ -228,6 +242,7 @@ namespace UserInterface {
 			this->Cell0->Size = System::Drawing::Size(112, 105);
 			this->Cell0->TabIndex = 0;
 			this->Cell0->UseVisualStyleBackColor = false;
+			this->Cell0->Click += gcnew System::EventHandler(this, &MyForm::Cell0_Click);
 			// 
 			// Cell1
 			// 
@@ -243,6 +258,7 @@ namespace UserInterface {
 			this->Cell1->Size = System::Drawing::Size(112, 105);
 			this->Cell1->TabIndex = 1;
 			this->Cell1->UseVisualStyleBackColor = false;
+			this->Cell1->Click += gcnew System::EventHandler(this, &MyForm::Cell1_Click);
 			// 
 			// Cell2
 			// 
@@ -257,6 +273,7 @@ namespace UserInterface {
 			this->Cell2->Size = System::Drawing::Size(112, 105);
 			this->Cell2->TabIndex = 2;
 			this->Cell2->UseVisualStyleBackColor = false;
+			this->Cell2->Click += gcnew System::EventHandler(this, &MyForm::Cell2_Click);
 			// 
 			// Cell3
 			// 
@@ -271,6 +288,7 @@ namespace UserInterface {
 			this->Cell3->Size = System::Drawing::Size(112, 105);
 			this->Cell3->TabIndex = 3;
 			this->Cell3->UseVisualStyleBackColor = false;
+			this->Cell3->Click += gcnew System::EventHandler(this, &MyForm::Cell3_Click);
 			// 
 			// Cell4
 			// 
@@ -285,7 +303,7 @@ namespace UserInterface {
 			this->Cell4->Size = System::Drawing::Size(112, 105);
 			this->Cell4->TabIndex = 4;
 			this->Cell4->UseVisualStyleBackColor = false;
-			this->Cell4->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
+			this->Cell4->Click += gcnew System::EventHandler(this, &MyForm::Cell4_Click);
 			// 
 			// Cell5
 			// 
@@ -301,6 +319,7 @@ namespace UserInterface {
 			this->Cell5->Size = System::Drawing::Size(112, 105);
 			this->Cell5->TabIndex = 5;
 			this->Cell5->UseVisualStyleBackColor = false;
+			this->Cell5->Click += gcnew System::EventHandler(this, &MyForm::Cell5_Click);
 			// 
 			// Cell6
 			// 
@@ -315,6 +334,7 @@ namespace UserInterface {
 			this->Cell6->Size = System::Drawing::Size(112, 105);
 			this->Cell6->TabIndex = 6;
 			this->Cell6->UseVisualStyleBackColor = false;
+			this->Cell6->Click += gcnew System::EventHandler(this, &MyForm::Cell6_Click);
 			// 
 			// Cell7
 			// 
@@ -329,6 +349,7 @@ namespace UserInterface {
 			this->Cell7->Size = System::Drawing::Size(112, 105);
 			this->Cell7->TabIndex = 7;
 			this->Cell7->UseVisualStyleBackColor = false;
+			this->Cell7->Click += gcnew System::EventHandler(this, &MyForm::Cell7_Click);
 			// 
 			// Cell8
 			// 
@@ -343,6 +364,7 @@ namespace UserInterface {
 			this->Cell8->Size = System::Drawing::Size(112, 105);
 			this->Cell8->TabIndex = 8;
 			this->Cell8->UseVisualStyleBackColor = false;
+			this->Cell8->Click += gcnew System::EventHandler(this, &MyForm::Cell8_Click);
 			// 
 			// pictureBox2
 			// 
@@ -353,6 +375,28 @@ namespace UserInterface {
 			this->pictureBox2->Size = System::Drawing::Size(581, 75);
 			this->pictureBox2->TabIndex = 0;
 			this->pictureBox2->TabStop = false;
+			// 
+			// XMark
+			// 
+			this->XMark->BackColor = System::Drawing::Color::Transparent;
+			this->XMark->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"XMark.BackgroundImage")));
+			this->XMark->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->XMark->Location = System::Drawing::Point(68, 174);
+			this->XMark->Name = L"XMark";
+			this->XMark->Size = System::Drawing::Size(75, 23);
+			this->XMark->TabIndex = 2;
+			this->XMark->UseVisualStyleBackColor = false;
+			// 
+			// OMark
+			// 
+			this->OMark->BackColor = System::Drawing::Color::Transparent;
+			this->OMark->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"OMark.BackgroundImage")));
+			this->OMark->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->OMark->Location = System::Drawing::Point(68, 235);
+			this->OMark->Name = L"OMark";
+			this->OMark->Size = System::Drawing::Size(75, 23);
+			this->OMark->TabIndex = 3;
+			this->OMark->UseVisualStyleBackColor = false;
 			// 
 			// MyForm
 			// 
@@ -377,20 +421,107 @@ namespace UserInterface {
 
 		}
 #pragma endregion
+	private: System::Void UpdateGameState() {
+		// Update the board
+		//Board board = game->getBoard();
+	}
+	//Property Change Events
 	private: System::Void OnGamePanelVisibilityChanged(System::Object^ sender, System::EventArgs^ e) {
-
+		if (this->GamePanel->Visible == true) {
+			//this->game->resetGame();
+		}
 	}
 
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 
 	}
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	}
+	//Click Events
+
 	private: System::Void PlaySoloButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->MenuPanel->Visible = false;
+		this->GamePanel->Visible = true;
+		
 	}
-	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	private: System::Void takeTurn(System::Windows::Forms::Button^ button, size_t row, size_t col) {
+		bool move_successful = game->takeTurn(row, col);
+		if (!move_successful) {
+			return;
+		}
+
+		System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+		if (this->game->getCurrentPlayer().getToken() == 'o') {
+			button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"OMark.BackgroundImage"))); // Ensure the image file is in the correct location
+		}
+		else {
+			button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"XMark.BackgroundImage"))); // Ensure the image file is in the correct location
+		}
+
+		this->game->swapPlayer();
 	}
+
+	private: System::Void Cell0_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 0;
+		size_t col = 0;
+		
+		this->takeTurn(this->Cell0, row, col);
+	}
+	private: System::Void Cell1_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 0;
+		size_t col = 1;
+
+		this->takeTurn(this->Cell1, row, col);
+	}
+	private: System::Void Cell2_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 0;
+		size_t col = 2;
+
+		this->takeTurn(this->Cell2, row, col);
+	}
+
+	private: System::Void Cell3_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 1;
+		size_t col = 0;
+
+		this->takeTurn(this->Cell3, row, col);
+	}
+
+	private: System::Void Cell4_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 1;
+		size_t col = 1;
+
+		this->takeTurn(this->Cell4, row, col);
+	}
+
+	private: System::Void Cell5_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 1;
+		size_t col = 2;
+
+		this->takeTurn(this->Cell5, row, col);
+	}
+
+	private: System::Void Cell6_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 2;
+		size_t col = 0;
+
+		this->takeTurn(this->Cell6, row, col);
+	}
+
+	private: System::Void Cell7_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 2;
+		size_t col = 1;
+
+		this->takeTurn(this->Cell7, row, col);
+	}
+
+	private: System::Void Cell8_Click(System::Object^ sender, System::EventArgs^ e) {
+		size_t row = 2;
+		size_t col = 2;
+
+		this->takeTurn(this->Cell8, row, col);
+	}
+private: System::Void GamePanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
 };
 }

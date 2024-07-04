@@ -120,12 +120,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\TicTacToe\Board.cpp" />
+    <ClCompile Include="..\TicTacToe\Game.cpp" />
+    <ClCompile Include="..\TicTacToe\Player.cpp" />
     <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
@@ -136,6 +140,17 @@
     <ProjectReference Include="..\TicTacToe\TicTacToe.vcxproj">
       <Project>{ed2f7788-607e-4e70-b9d4-a643322deb60}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\OneDrive\Documents\TicTacToeOnline\ConceptArt\OMark.png">
+      <DeploymentContent>false</DeploymentContent>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Documents\TicTacToeOnline\ConceptArt\XMark.png">
+      <DeploymentContent>false</DeploymentContent>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UserInterface.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
