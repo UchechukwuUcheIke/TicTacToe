@@ -50,7 +50,8 @@ namespace UserInterface {
 	private: System::Windows::Forms::Button^ MultiplayerButton;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Panel^ GamePanel;
-	private: System::Windows::Forms::PictureBox^ pictureBox2;
+	private: System::Windows::Forms::PictureBox^ GameAnnouncement;
+
 	private: System::Windows::Forms::FlowLayoutPanel^ BoardPanel;
 	private: System::Windows::Forms::Button^ Cell0;
 	private: System::Windows::Forms::Button^ Cell1;
@@ -63,6 +64,10 @@ namespace UserInterface {
 	private: System::Windows::Forms::Button^ Cell8;
 	private: System::Windows::Forms::Button^ OMark;
 	private: System::Windows::Forms::Button^ XMark;
+	private: System::Windows::Forms::PictureBox^ PlayerOsTurn;
+
+	private: System::Windows::Forms::PictureBox^ PlayerXsTurn;
+
 
 	
 
@@ -99,6 +104,8 @@ namespace UserInterface {
 			this->MultiplayerButton = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->GamePanel = (gcnew System::Windows::Forms::Panel());
+			this->OMark = (gcnew System::Windows::Forms::Button());
+			this->XMark = (gcnew System::Windows::Forms::Button());
 			this->BoardPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->Cell0 = (gcnew System::Windows::Forms::Button());
 			this->Cell1 = (gcnew System::Windows::Forms::Button());
@@ -109,15 +116,17 @@ namespace UserInterface {
 			this->Cell6 = (gcnew System::Windows::Forms::Button());
 			this->Cell7 = (gcnew System::Windows::Forms::Button());
 			this->Cell8 = (gcnew System::Windows::Forms::Button());
-			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
-			this->XMark = (gcnew System::Windows::Forms::Button());
-			this->OMark = (gcnew System::Windows::Forms::Button());
+			this->GameAnnouncement = (gcnew System::Windows::Forms::PictureBox());
+			this->PlayerXsTurn = (gcnew System::Windows::Forms::PictureBox());
+			this->PlayerOsTurn = (gcnew System::Windows::Forms::PictureBox());
 			this->MenuPanel->SuspendLayout();
 			this->GameModesLayout->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->GamePanel->SuspendLayout();
 			this->BoardPanel->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GameAnnouncement))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerXsTurn))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerOsTurn))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// MenuPanel
@@ -197,10 +206,12 @@ namespace UserInterface {
 			// 
 			// GamePanel
 			// 
+			this->GamePanel->Controls->Add(this->PlayerOsTurn);
+			this->GamePanel->Controls->Add(this->PlayerXsTurn);
 			this->GamePanel->Controls->Add(this->OMark);
 			this->GamePanel->Controls->Add(this->XMark);
 			this->GamePanel->Controls->Add(this->BoardPanel);
-			this->GamePanel->Controls->Add(this->pictureBox2);
+			this->GamePanel->Controls->Add(this->GameAnnouncement);
 			this->GamePanel->Dock = System::Windows::Forms::DockStyle::Left;
 			this->GamePanel->Location = System::Drawing::Point(0, 0);
 			this->GamePanel->Name = L"GamePanel";
@@ -209,6 +220,30 @@ namespace UserInterface {
 			this->GamePanel->Visible = false;
 			this->GamePanel->VisibleChanged += gcnew System::EventHandler(this, &MyForm::OnGamePanelVisibilityChanged);
 			this->GamePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::GamePanel_Paint);
+			// 
+			// OMark
+			// 
+			this->OMark->BackColor = System::Drawing::Color::Transparent;
+			this->OMark->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"OMark.BackgroundImage")));
+			this->OMark->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->OMark->Location = System::Drawing::Point(68, 235);
+			this->OMark->Name = L"OMark";
+			this->OMark->Size = System::Drawing::Size(75, 23);
+			this->OMark->TabIndex = 3;
+			this->OMark->UseVisualStyleBackColor = false;
+			this->OMark->Visible = false;
+			// 
+			// XMark
+			// 
+			this->XMark->BackColor = System::Drawing::Color::Transparent;
+			this->XMark->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"XMark.BackgroundImage")));
+			this->XMark->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->XMark->Location = System::Drawing::Point(68, 174);
+			this->XMark->Name = L"XMark";
+			this->XMark->Size = System::Drawing::Size(75, 23);
+			this->XMark->TabIndex = 2;
+			this->XMark->UseVisualStyleBackColor = false;
+			this->XMark->Visible = false;
 			// 
 			// BoardPanel
 			// 
@@ -366,37 +401,37 @@ namespace UserInterface {
 			this->Cell8->UseVisualStyleBackColor = false;
 			this->Cell8->Click += gcnew System::EventHandler(this, &MyForm::Cell8_Click);
 			// 
-			// pictureBox2
+			// GameAnnouncement
 			// 
-			this->pictureBox2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.BackgroundImage")));
-			this->pictureBox2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->pictureBox2->Location = System::Drawing::Point(174, 5);
-			this->pictureBox2->Name = L"pictureBox2";
-			this->pictureBox2->Size = System::Drawing::Size(581, 75);
-			this->pictureBox2->TabIndex = 0;
-			this->pictureBox2->TabStop = false;
+			this->GameAnnouncement->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"GameAnnouncement.BackgroundImage")));
+			this->GameAnnouncement->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->GameAnnouncement->Location = System::Drawing::Point(174, 5);
+			this->GameAnnouncement->Name = L"GameAnnouncement";
+			this->GameAnnouncement->Size = System::Drawing::Size(581, 75);
+			this->GameAnnouncement->TabIndex = 0;
+			this->GameAnnouncement->TabStop = false;
 			// 
-			// XMark
+			// PlayerXsTurn
 			// 
-			this->XMark->BackColor = System::Drawing::Color::Transparent;
-			this->XMark->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"XMark.BackgroundImage")));
-			this->XMark->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->XMark->Location = System::Drawing::Point(68, 174);
-			this->XMark->Name = L"XMark";
-			this->XMark->Size = System::Drawing::Size(75, 23);
-			this->XMark->TabIndex = 2;
-			this->XMark->UseVisualStyleBackColor = false;
+			this->PlayerXsTurn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PlayerXsTurn.BackgroundImage")));
+			this->PlayerXsTurn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->PlayerXsTurn->Location = System::Drawing::Point(12, 278);
+			this->PlayerXsTurn->Name = L"PlayerXsTurn";
+			this->PlayerXsTurn->Size = System::Drawing::Size(236, 60);
+			this->PlayerXsTurn->TabIndex = 4;
+			this->PlayerXsTurn->TabStop = false;
+			this->PlayerXsTurn->Visible = false;
 			// 
-			// OMark
+			// PlayerOsTurn
 			// 
-			this->OMark->BackColor = System::Drawing::Color::Transparent;
-			this->OMark->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"OMark.BackgroundImage")));
-			this->OMark->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->OMark->Location = System::Drawing::Point(68, 235);
-			this->OMark->Name = L"OMark";
-			this->OMark->Size = System::Drawing::Size(75, 23);
-			this->OMark->TabIndex = 3;
-			this->OMark->UseVisualStyleBackColor = false;
+			this->PlayerOsTurn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PlayerOsTurn.BackgroundImage")));
+			this->PlayerOsTurn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->PlayerOsTurn->Location = System::Drawing::Point(12, 344);
+			this->PlayerOsTurn->Name = L"PlayerOsTurn";
+			this->PlayerOsTurn->Size = System::Drawing::Size(236, 60);
+			this->PlayerOsTurn->TabIndex = 5;
+			this->PlayerOsTurn->TabStop = false;
+			this->PlayerOsTurn->Visible = false;
 			// 
 			// MyForm
 			// 
@@ -416,7 +451,9 @@ namespace UserInterface {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->GamePanel->ResumeLayout(false);
 			this->BoardPanel->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GameAnnouncement))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerXsTurn))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerOsTurn))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -444,6 +481,47 @@ namespace UserInterface {
 		
 	}
 
+	// Sets the background of all buttons to be empty. Used when resetting game state
+	private: System::Void clearCells() {
+		System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+		this->Cell0->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+		this->Cell1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+		this->Cell2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+		this->Cell3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+		this->Cell4->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+		this->Cell5->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+		this->Cell6->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+		this->Cell7->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+		this->Cell8->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"")));
+	}
+
+	// Update game state after game
+	private: System::Void updateGameState() {
+		System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+
+		Player current_player = this->game->getCurrentPlayer();
+		char player_token = current_player.getToken();
+
+		bool player_won = this->game->checkWinner();
+
+		if (player_won) {
+			//TODO: Add a player won message
+			// TODO: Maybe add a helper function for all this?
+			this->game->resetGame();
+			this->clearCells();
+			this->GameAnnouncement->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PlayerXsTurn.BackgroundImage")));
+		}
+		
+		this->game->swapPlayer();
+		
+		if (this->game->getCurrentPlayer().getToken() == 'o') {
+			this->GameAnnouncement->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PlayerOsTurn.BackgroundImage")));
+		}
+		else {
+			this->GameAnnouncement->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PlayerXsTurn.BackgroundImage")));
+		}
+	}
+
 	private: System::Void takeTurn(System::Windows::Forms::Button^ button, size_t row, size_t col) {
 		bool move_successful = game->takeTurn(row, col);
 		if (!move_successful) {
@@ -458,7 +536,8 @@ namespace UserInterface {
 			button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"XMark.BackgroundImage"))); // Ensure the image file is in the correct location
 		}
 
-		this->game->swapPlayer();
+		// Swaps players' alongside some cosmetic updates
+		this->updateGameState();
 	}
 
 	private: System::Void Cell0_Click(System::Object^ sender, System::EventArgs^ e) {
