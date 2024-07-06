@@ -104,6 +104,9 @@ namespace UserInterface {
 			this->MultiplayerButton = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->GamePanel = (gcnew System::Windows::Forms::Panel());
+			this->GameOverPanel = (gcnew System::Windows::Forms::Panel());
+			this->BackToMenuButton = (gcnew System::Windows::Forms::Button());
+			this->PlayAgainButton = (gcnew System::Windows::Forms::Button());
 			this->PlayerOHasWon = (gcnew System::Windows::Forms::PictureBox());
 			this->PlayerXHasWon = (gcnew System::Windows::Forms::PictureBox());
 			this->PlayerOsTurn = (gcnew System::Windows::Forms::PictureBox());
@@ -121,20 +124,17 @@ namespace UserInterface {
 			this->Cell7 = (gcnew System::Windows::Forms::Button());
 			this->Cell8 = (gcnew System::Windows::Forms::Button());
 			this->GameAnnouncement = (gcnew System::Windows::Forms::PictureBox());
-			this->GameOverPanel = (gcnew System::Windows::Forms::Panel());
-			this->BackToMenuButton = (gcnew System::Windows::Forms::Button());
-			this->PlayAgainButton = (gcnew System::Windows::Forms::Button());
 			this->MenuPanel->SuspendLayout();
 			this->GameModesLayout->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->GamePanel->SuspendLayout();
+			this->GameOverPanel->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerOHasWon))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerXHasWon))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerOsTurn))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerXsTurn))->BeginInit();
 			this->BoardPanel->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GameAnnouncement))->BeginInit();
-			this->GameOverPanel->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// MenuPanel
@@ -145,7 +145,7 @@ namespace UserInterface {
 			this->MenuPanel->Controls->Add(this->pictureBox1);
 			this->MenuPanel->Location = System::Drawing::Point(245, 1);
 			this->MenuPanel->Name = L"MenuPanel";
-			this->MenuPanel->Size = System::Drawing::Size(427, 424);
+			this->MenuPanel->Size = System::Drawing::Size(430, 424);
 			this->MenuPanel->TabIndex = 0;
 			// 
 			// GameModesLayout
@@ -215,6 +215,7 @@ namespace UserInterface {
 			// GamePanel
 			// 
 			this->GamePanel->BackColor = System::Drawing::Color::Transparent;
+			this->GamePanel->Controls->Add(this->GameOverPanel);
 			this->GamePanel->Controls->Add(this->PlayerOHasWon);
 			this->GamePanel->Controls->Add(this->PlayerXHasWon);
 			this->GamePanel->Controls->Add(this->PlayerOsTurn);
@@ -226,11 +227,45 @@ namespace UserInterface {
 			this->GamePanel->Dock = System::Windows::Forms::DockStyle::Left;
 			this->GamePanel->Location = System::Drawing::Point(0, 0);
 			this->GamePanel->Name = L"GamePanel";
-			this->GamePanel->Size = System::Drawing::Size(924, 424);
+			this->GamePanel->Size = System::Drawing::Size(923, 424);
 			this->GamePanel->TabIndex = 1;
 			this->GamePanel->Visible = false;
 			this->GamePanel->VisibleChanged += gcnew System::EventHandler(this, &MyForm::OnGamePanelVisibilityChanged);
 			this->GamePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::GamePanel_Paint);
+			// 
+			// GameOverPanel
+			// 
+			this->GameOverPanel->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->GameOverPanel->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->GameOverPanel->Controls->Add(this->BackToMenuButton);
+			this->GameOverPanel->Controls->Add(this->PlayAgainButton);
+			this->GameOverPanel->Location = System::Drawing::Point(661, 144);
+			this->GameOverPanel->Name = L"GameOverPanel";
+			this->GameOverPanel->Size = System::Drawing::Size(260, 165);
+			this->GameOverPanel->TabIndex = 2;
+			this->GameOverPanel->Visible = false;
+			// 
+			// BackToMenuButton
+			// 
+			this->BackToMenuButton->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->BackToMenuButton->Location = System::Drawing::Point(0, 86);
+			this->BackToMenuButton->Name = L"BackToMenuButton";
+			this->BackToMenuButton->Size = System::Drawing::Size(256, 75);
+			this->BackToMenuButton->TabIndex = 1;
+			this->BackToMenuButton->Text = L"Back To Menu";
+			this->BackToMenuButton->UseVisualStyleBackColor = true;
+			this->BackToMenuButton->Click += gcnew System::EventHandler(this, &MyForm::BackToMenuButton_Click);
+			// 
+			// PlayAgainButton
+			// 
+			this->PlayAgainButton->Dock = System::Windows::Forms::DockStyle::Top;
+			this->PlayAgainButton->Location = System::Drawing::Point(0, 0);
+			this->PlayAgainButton->Name = L"PlayAgainButton";
+			this->PlayAgainButton->Size = System::Drawing::Size(256, 75);
+			this->PlayAgainButton->TabIndex = 3;
+			this->PlayAgainButton->Text = L"Play Again";
+			this->PlayAgainButton->UseVisualStyleBackColor = true;
+			this->PlayAgainButton->Click += gcnew System::EventHandler(this, &MyForm::PlayAgainButton_Click);
 			// 
 			// PlayerOHasWon
 			// 
@@ -241,6 +276,7 @@ namespace UserInterface {
 			this->PlayerOHasWon->Size = System::Drawing::Size(212, 48);
 			this->PlayerOHasWon->TabIndex = 7;
 			this->PlayerOHasWon->TabStop = false;
+			this->PlayerOHasWon->Visible = false;
 			// 
 			// PlayerXHasWon
 			// 
@@ -251,6 +287,7 @@ namespace UserInterface {
 			this->PlayerXHasWon->Size = System::Drawing::Size(212, 46);
 			this->PlayerXHasWon->TabIndex = 6;
 			this->PlayerXHasWon->TabStop = false;
+			this->PlayerXHasWon->Visible = false;
 			// 
 			// PlayerOsTurn
 			// 
@@ -463,38 +500,6 @@ namespace UserInterface {
 			this->GameAnnouncement->TabIndex = 0;
 			this->GameAnnouncement->TabStop = false;
 			// 
-			// GameOverPanel
-			// 
-			this->GameOverPanel->Controls->Add(this->BackToMenuButton);
-			this->GameOverPanel->Controls->Add(this->PlayAgainButton);
-			this->GameOverPanel->Location = System::Drawing::Point(309, 30);
-			this->GameOverPanel->Name = L"GameOverPanel";
-			this->GameOverPanel->Size = System::Drawing::Size(349, 186);
-			this->GameOverPanel->TabIndex = 0;
-			this->GameOverPanel->Visible = false;
-			// 
-			// BackToMenuButton
-			// 
-			this->BackToMenuButton->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->BackToMenuButton->Location = System::Drawing::Point(0, 99);
-			this->BackToMenuButton->Name = L"BackToMenuButton";
-			this->BackToMenuButton->Size = System::Drawing::Size(349, 87);
-			this->BackToMenuButton->TabIndex = 1;
-			this->BackToMenuButton->Text = L"Back To Menu";
-			this->BackToMenuButton->UseVisualStyleBackColor = true;
-			this->BackToMenuButton->Click += gcnew System::EventHandler(this, &MyForm::BackToMenuButton_Click);
-			// 
-			// PlayAgainButton
-			// 
-			this->PlayAgainButton->Dock = System::Windows::Forms::DockStyle::Top;
-			this->PlayAgainButton->Location = System::Drawing::Point(0, 0);
-			this->PlayAgainButton->Name = L"PlayAgainButton";
-			this->PlayAgainButton->Size = System::Drawing::Size(349, 87);
-			this->PlayAgainButton->TabIndex = 0;
-			this->PlayAgainButton->Text = L"Play Again";
-			this->PlayAgainButton->UseVisualStyleBackColor = true;
-			this->PlayAgainButton->Click += gcnew System::EventHandler(this, &MyForm::PlayAgainButton_Click);
-			// 
 			// MyForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
@@ -512,13 +517,13 @@ namespace UserInterface {
 			this->GameModesLayout->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->GamePanel->ResumeLayout(false);
+			this->GameOverPanel->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerOHasWon))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerXHasWon))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerOsTurn))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlayerXsTurn))->EndInit();
 			this->BoardPanel->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GameAnnouncement))->EndInit();
-			this->GameOverPanel->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
@@ -571,7 +576,6 @@ namespace UserInterface {
 		bool player_won = this->game->checkWinner();
 
 		if (player_won) {
-			//TODO: Add a player won message
 			// TODO: Maybe add a helper function for all this?
 			if (player_token == 'x') {
 				this->GameAnnouncement->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PlayerXHasWon.BackgroundImage")));
@@ -583,12 +587,11 @@ namespace UserInterface {
 			this->GameAnnouncement->Refresh();
 			std::this_thread::sleep_for(std::chrono::seconds(3));
 			
+			// Same position as the BoardPanel
+			// TODO: Get a variable so this isn't hardcoded
+			this->GameOverPanel->Location = System::Drawing::Point(303, 90);
 			this->GameOverPanel->Visible = true;
-			this->GamePanel->Enabled = false;
-			this->GameOverPanel->Enabled = true;
-			//this->game->resetGame();
-			//this->clearCells();
-			//this->GameAnnouncement->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PlayerXsTurn.BackgroundImage")));
+			this->BoardPanel->Visible = false;
 			return;
 		}
 		
@@ -604,16 +607,17 @@ namespace UserInterface {
 
 	private: System::Void PlayAgainButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		// Resets the game state
+		System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+
 		this->game->resetGame();
 		this->clearCells();
 		this->GameOverPanel->Visible = false;
-		this->GamePanel->Enabled = true;
+		this->BoardPanel->Visible = true;
+		this->GameAnnouncement->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PlayerXsTurn.BackgroundImage")));
 	}
 
 	private: System::Void BackToMenuButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->clearCells();
-		this->GameOverPanel->Visible = false;
-		this->GamePanel->Enabled = true;
+		this->PlayAgainButton_Click(sender, e);
 		this->GamePanel->Visible = false;
 		this->MenuPanel->Visible = true;
 	}

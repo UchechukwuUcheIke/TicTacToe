@@ -8,7 +8,9 @@ class Game
 public:
 	Game();
 	bool takeTurn(size_t row, size_t col);
+	bool cpuTakeTurn();
 	bool checkWinner();
+	bool isStalemate();
 	void resetGame();
 	void swapPlayer();
 
