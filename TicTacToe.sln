@@ -7,7 +7,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TicTacToe", "TicTacToe\TicT
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{7A4D3032-77FA-441A-AECB-FCBE0017F55A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UserInterface", "UserInterface\UserInterface.vcxproj", "{5C4AFB5C-ACB1-4098-9286-83EDC0DDA145}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SinglePlayerUserInterface", "UserInterface\UserInterface.vcxproj", "{5C4AFB5C-ACB1-4098-9286-83EDC0DDA145}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server\Server.vcxproj", "{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{5C4AFB5C-ACB1-4098-9286-83EDC0DDA145}.Release|x64.Build.0 = Release|x64
 		{5C4AFB5C-ACB1-4098-9286-83EDC0DDA145}.Release|x86.ActiveCfg = Release|Win32
 		{5C4AFB5C-ACB1-4098-9286-83EDC0DDA145}.Release|x86.Build.0 = Release|Win32
+		{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}.Debug|x64.ActiveCfg = Debug|x64
+		{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}.Debug|x64.Build.0 = Debug|x64
+		{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}.Debug|x86.ActiveCfg = Debug|Win32
+		{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}.Debug|x86.Build.0 = Debug|Win32
+		{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}.Release|x64.ActiveCfg = Release|x64
+		{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}.Release|x64.Build.0 = Release|x64
+		{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}.Release|x86.ActiveCfg = Release|Win32
+		{8C9D053C-0BD0-4543-B02D-4C1EB3BE39C8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
