@@ -27,8 +27,8 @@ bool Game::cpuTakeTurn() {
 	size_t num_rows = this->board.getNumRows();
 	size_t num_cols = this->board.getNumCols();
 	std::vector<size_t> free_spaces = std::vector<size_t>();
-	for (size_t row; row < num_rows; row++) {
-		for (size_t col; col < num_cols; col++) {
+	for (size_t row = 0; row < num_rows; row++) {
+		for (size_t col = 0; col < num_cols; col++) {
 			size_t space_idx = (row * num_cols) + col;
 			free_spaces.push_back(space_idx);
 		}

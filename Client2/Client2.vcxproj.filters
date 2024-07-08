@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Server.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TicTacToe\Game.cpp">
+    <ClCompile Include="..\Client\Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
