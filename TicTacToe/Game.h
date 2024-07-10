@@ -19,6 +19,8 @@ public:
 	Player getPlayer2();
 	Board getBoard();
 
+	char *getBoardString();
+
 private:
 	Board board;
 	Player player1;

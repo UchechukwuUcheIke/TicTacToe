@@ -16,6 +16,7 @@ public:
     void resetBoard();
 
     std::vector<std::vector<char>> getBoard();
+    char getCell(size_t row, size_t col);
     size_t getNumRows();
     size_t getNumCols();
 

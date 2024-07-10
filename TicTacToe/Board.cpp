@@ -21,6 +21,14 @@ std::vector<std::vector<char>> Board::getBoard() {
     return this->board;
 }
 
+char Board::getCell(size_t row, size_t col) {
+    if (row < 0 || row >= this->num_rows || col < 0 || col > this->num_cols) {
+        return ' ';
+    }
+
+    return this->board[row][col];
+}
+
 size_t Board::getNumRows() {
     return this->num_rows;
 }

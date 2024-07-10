@@ -50,16 +50,39 @@ int main() {
         return -1;
     }
     char msg_buffer[200];
-    sprintf_s(msg_buffer, 200, "MSG: Wait");
+    ZeroMemory(msg_buffer, 200);
+    sprintf_s(msg_buffer, 200, "STATE: Waiting for player");
     send(clientSocket1, msg_buffer, 200, 0);
 
     clientSocket2 = accept(serverSocket, (struct sockaddr*)&client, &c);
     if (clientSocket2 == INVALID_SOCKET) {
+        //TODO: Send message to client if connection of second player fails
         return -1;
     }
 
     // Initialize the game board
     Game game = Game();
+    int currentPlayer = 0;
+    while (1) {
+        SOCKET currentClient = currentPlayer == 0 ? clientSocket1 : clientSocket2;
+        ZeroMemory(msg_buffer, 200);
+        sprintf_s(msg_buffer, 200, "REQMV");
+        send(currentClient, msg_buffer, 200, 0);
+        
+        // Client sends a message with format: "MOVE: x y"
+        recv(currentClient, msg_buffer, 200, 0);
+        int row = 0, col = 0;
+        sscanf_s(msg_buffer, "RESMV: %d, %d", &row, &col);
+        game.takeTurn(row, col);
+
+        ZeroMemory(msg_buffer, 200);
+        sprintf_s(msg_buffer, 200, "BOARD:");
+        strcat_s(msg_buffer, game.getBoardString());
+
+        send(clientSocket1, msg_buffer, 200, 0);
+        send(clientSocket2, msg_buffer, 200, 0);
+
+    }
 
 
     closesocket(serverSocket);

@@ -79,6 +79,25 @@ Board Game::getBoard() {
 	return this->board;
 }
 
+char* Game::getBoardString() {
+	const int board_size = 9;
+	const int buffer_size = board_size + 1;
+	char buffer[buffer_size];
+	memset(buffer, 0, buffer_size);
+
+	Board board = this->getBoard();
+	size_t num_rows = board.getNumRows();
+	size_t num_cols = board.getNumCols();
+	for (size_t row = 0; row < num_rows; row++) {
+		for (size_t col = 0; col < num_cols; col++) {
+			char curr_cell = board.getCell(row, col);
+			strcat_s(buffer, &curr_cell);
+		}
+	}
+
+	return buffer;
+}
+
 Player Game::getPlayer1() {
 	return this->player1;
 }

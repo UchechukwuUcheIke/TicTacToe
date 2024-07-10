@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <winsock2.h>
+#include <iostream>
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -24,9 +25,9 @@ void printBoard(char board[3][3]) {
 
 int main() {
     WSADATA wsa;
-    SOCKET s;
+    SOCKET server_socket;
     struct sockaddr_in server;
-    char message[2000], server_reply[2000];
+    char msg_buffer[200];
     int recv_size;
 
     // Initialize Winsock
@@ -38,7 +39,7 @@ int main() {
     printf("Initialized.\n");
 
     // Create socket
-    if ((s = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
+    if ((server_socket = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
         printf("Could not create socket: %d", WSAGetLastError());
         return 1;
     }
@@ -50,45 +51,39 @@ int main() {
     server.sin_port = htons(PORT);
 
     // Connect to server
-    if (connect(s, (struct sockaddr*)&server, sizeof(server)) < 0) {
+    if (connect(server_socket, (struct sockaddr*)&server, sizeof(server)) < 0) {
         printf("Connect failed with error code: %d", WSAGetLastError());
         return 1;
     }
-    printf("Connected.\n");
+    std::cout << "Connected" << "\n";
 
-    recv(s, server_reply, 200, 0);
-    printf("Sever reply: %s\n");
-    // Game loop
+    const size_t header_buffer_size = 6;
+    char header_buffer[header_buffer_size];
+    ZeroMemory(header_buffer, header_buffer_size);
+
     while (1) {
-        // Receive a message from the server
-        if ((recv_size = recv(s, server_reply, 2000, 0)) == SOCKET_ERROR) {
-            printf("recv failed");
-            break;
+        recv(server_socket, header_buffer, 5, 0);
+
+        if (strcmp(header_buffer, "REQMV") == 0) {
+            char msg_buffer[200];
+            ZeroMemory(msg_buffer, 200);
+            char move[4];
+            std::cin >> move;
+            sprintf(msg_buffer, "RESMV:");
+            strcat_s(msg_buffer, move);
+
+            send(server_socket, msg_buffer, 200, 0);
         }
-        server_reply[recv_size] = '\0';
-        printf("%s", server_reply);
-
-        // Receive the board state
-        if ((recv_size = recv(s, server_reply, sizeof(char[3][3]), 0)) == SOCKET_ERROR) {
-            printf("recv failed");
-            break;
+        else if (strcmp(header_buffer, "BOARD") == 0) {
+            char msg_buffer[200];
+            recv(server_socket, msg_buffer, 195, 0);
+            std::cout << msg_buffer << "\n";
         }
-        char board[3][3];
-        memcpy(board, server_reply, sizeof(board));
-        printBoard(board);
 
-        // Get player's move
-        printf("Enter your move (row and column): ");
-        fgets(message, sizeof(message), stdin);
 
-        // Send the move to the server
-        if (send(s, message, strlen(message), 0) < 0) {
-            printf("Send failed");
-            break;
-        }
-    }
+    }    
 
-    closesocket(s);
+    closesocket(server_socket);
     WSACleanup();
 
     return 0;

@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\TicTacToe\Board.cpp" />
     <ClCompile Include="..\TicTacToe\Game.cpp" />
+    <ClCompile Include="..\TicTacToe\Player.cpp" />
     <ClCompile Include="Server.cpp" />
   </ItemGroup>
   <ItemGroup>
