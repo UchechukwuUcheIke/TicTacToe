@@ -6,6 +6,7 @@
 #include <string.h>
 #include <winsock2.h>
 #include <iostream>
+#include <string>
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -67,14 +68,24 @@ int main() {
         if (strcmp(header_buffer, "REQMV") == 0) {
             char msg_buffer[200];
             ZeroMemory(msg_buffer, 200);
-            char move[4];
-            std::cin >> move;
+            std::string line = NULL;
+
+            getline(std::cin, line);
+            line[3] = '\0';
             sprintf(msg_buffer, "RESMV:");
-            strcat_s(msg_buffer, move);
+            strcat_s(msg_buffer, line);
+
+            std::cout << "msg_buffer" << msg_buffer << "\n";
+            std::cout << "Strlen(Resmv)" << strlen(msg_buffer) << "\n";
 
             send(server_socket, msg_buffer, 200, 0);
         }
         else if (strcmp(header_buffer, "BOARD") == 0) {
+            char msg_buffer[200];
+            recv(server_socket, msg_buffer, 195, 0);
+            std::cout << msg_buffer << "\n";
+        }
+        else if (strcmp(header_buffer, "STATE") == 0) {
             char msg_buffer[200];
             recv(server_socket, msg_buffer, 195, 0);
             std::cout << msg_buffer << "\n";

@@ -49,6 +49,7 @@ int main() {
     if (clientSocket1 == INVALID_SOCKET) {
         return -1;
     }
+    
     char msg_buffer[200];
     ZeroMemory(msg_buffer, 200);
     sprintf_s(msg_buffer, 200, "STATE: Waiting for player");
@@ -60,25 +61,33 @@ int main() {
         return -1;
     }
 
+    std::cout << "Accepted both clients";
     // Initialize the game board
     Game game = Game();
     int currentPlayer = 0;
     while (1) {
         SOCKET currentClient = currentPlayer == 0 ? clientSocket1 : clientSocket2;
         ZeroMemory(msg_buffer, 200);
+        std::cout << "Asking for move from" << currentPlayer << "\n";
         sprintf_s(msg_buffer, 200, "REQMV");
         send(currentClient, msg_buffer, 200, 0);
         
         // Client sends a message with format: "MOVE: x y"
         recv(currentClient, msg_buffer, 200, 0);
+
+        std::cout << "msg_buffer" << msg_buffer << "\n";
+        std::cout << "Strlen(Resmv)" << strlen(msg_buffer) << "\n";
+
         int row = 0, col = 0;
-        sscanf_s(msg_buffer, "RESMV: %d, %d", &row, &col);
+        sscanf_s(msg_buffer, "RESMV:%d, %d", &row, &col);
+        std::cout << "Received move: " << row << " " << col << "\n";
         game.takeTurn(row, col);
 
         ZeroMemory(msg_buffer, 200);
-        sprintf_s(msg_buffer, 200, "BOARD:");
-        strcat_s(msg_buffer, game.getBoardString());
+        sprintf_s(msg_buffer, 6, "BOARD:|||||||||||");
+        //strcat_s(msg_buffer, game.getBoardString());
 
+        std::cout << "Sending Board to clients";
         send(clientSocket1, msg_buffer, 200, 0);
         send(clientSocket2, msg_buffer, 200, 0);
 
