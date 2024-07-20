@@ -31,6 +31,8 @@ int main() {
     char msg_buffer[200];
     int recv_size;
 
+    int header_size = 6;
+
     // Initialize Winsock
     printf("\nInitializing Winsock...");
     if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
@@ -68,15 +70,15 @@ int main() {
         if (strcmp(header_buffer, "REQMV") == 0) {
             char msg_buffer[200];
             ZeroMemory(msg_buffer, 200);
-            std::string line = NULL;
+            const char* header = "RESMV:";
+            strcpy(msg_buffer, header);
 
-            getline(std::cin, line);
-            line[3] = '\0';
-            sprintf(msg_buffer, "RESMV:");
-            strcat_s(msg_buffer, line);
+            std::string move;
+            getline(std::cin, move);
+            const char *move_cstr = move.c_str();
+            move[3] = '\0';
 
-            std::cout << "msg_buffer" << msg_buffer << "\n";
-            std::cout << "Strlen(Resmv)" << strlen(msg_buffer) << "\n";
+            strcat(msg_buffer, move_cstr);
 
             send(server_socket, msg_buffer, 200, 0);
         }

@@ -78,13 +78,17 @@ int main() {
         std::cout << "msg_buffer" << msg_buffer << "\n";
         std::cout << "Strlen(Resmv)" << strlen(msg_buffer) << "\n";
 
-        int row = 0, col = 0;
-        sscanf_s(msg_buffer, "RESMV:%d, %d", &row, &col);
-        std::cout << "Received move: " << row << " " << col << "\n";
-        game.takeTurn(row, col);
+        char row_char;
+        char col_char;
+        sscanf_s(msg_buffer, "RESMV:%c %c", &row_char, 1, &col_char, 1);
+        
+        int row = int(row_char);
+        int col = int(col_char);
+        //game.takeTurn(row, col);
+        std::cout << "Received move: " << row_char << " " << col_char << "\n";
 
         ZeroMemory(msg_buffer, 200);
-        sprintf_s(msg_buffer, 6, "BOARD:|||||||||||");
+        strcpy(msg_buffer, "BOARD:||||");
         //strcat_s(msg_buffer, game.getBoardString());
 
         std::cout << "Sending Board to clients";
